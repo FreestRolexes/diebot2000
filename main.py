@@ -1,6 +1,7 @@
 """Learning a new discord / python interface
 """
 
+import os
 import json
 from pathlib import Path
 
@@ -15,8 +16,15 @@ def main():
     """Main entry point of script
     """
 
-    env = json.load(open(ENV_PATH, 'r'))
-    bot = interactions.Client(token=env['discord_token'])
+    if ENV_PATH.exists():
+        env = json.load(open(ENV_PATH, 'r'))
+        token = env['discord_token']
+    elif os.getenv('DISCORD_TOKEN'):
+        token = os.getenv('DISCORD_TOKEN')
+    else:
+        raise RuntimeError('No Discord Token available')
+
+    bot = interactions.Client(token=token)
 
     @bot.command(name='roll',
                  description='Roll some dice!',
