@@ -3,10 +3,20 @@
 Currently bridges the gap between pyparsing objects
 """
 
-import pyparsing as pp
 import random
+from pathlib import Path
+import json
+
+import pyparsing as pp
 
 import command_parser
+
+#from randomnames.adjectives import ADJECTIVES
+from adjectives import ADJECTIVES
+
+COLOR_FILE = Path('colors.json')
+COLOR_DICT = json.load(COLOR_FILE.open())
+
 
 DICE_EMOJI = {':d4:' : '<:d4:797105702878314556>',
               ':d6:' : '<:d6:797105706351460374>',
